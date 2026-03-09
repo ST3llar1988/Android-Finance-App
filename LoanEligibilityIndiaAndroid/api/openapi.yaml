@@ -1,0 +1,32 @@
+﻿openapi: 3.0.3
+info:
+  title: Loan Eligibility India API
+  version: 1.0.0
+  description: API contract for OCR extraction, EMI simulation, and bank-wise loan eligibility.
+servers:
+  - url: https://api.loaneligibilityindia.com
+paths:
+  /v1/banks/policies:
+    get:
+      summary: Fetch active bank policy rules
+      responses:
+        '200':
+          description: List of active bank policies
+  /v1/eligibility/calculate:
+    post:
+      summary: Calculate bank-wise home loan eligibility
+      responses:
+        '200':
+          description: Eligibility results
+  /v1/ocr/extract:
+    post:
+      summary: Extract financial signals from salary slip or ITR document
+      responses:
+        '200':
+          description: OCR extraction output
+  /v1/emi/simulate:
+    post:
+      summary: Calculate EMI based on principal, rate, and tenure
+      responses:
+        '200':
+          description: EMI simulation
