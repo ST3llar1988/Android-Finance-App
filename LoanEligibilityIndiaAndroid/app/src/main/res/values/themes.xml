@@ -1,7 +1,5 @@
 <resources>
-
-    <style name="Theme.LoanEligibilityIndiaAndroid" parent="Theme.Material3">
+    <style name="Theme.LoanEligibilityIndiaAndroid" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
-
 </resources>
