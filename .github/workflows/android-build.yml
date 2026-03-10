@@ -9,18 +9,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-java@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '17'
+          distribution: temurin
+          java-version: 17
 
-      - run: chmod +x gradlew
+      - name: Move to project folder
+        run: cd LoanEligibilityIndiaAndroid
 
-      - run: ./gradlew assembleDebug
+      - name: Make gradlew executable
+        run: chmod +x LoanEligibilityIndiaAndroid/gradlew
 
-      - uses: actions/upload-artifact@v4
+      - name: Build APK
+        run: cd LoanEligibilityIndiaAndroid && ./gradlew assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
         with:
-          name: app-debug
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: android-apk
+          path: LoanEligibilityIndiaAndroid/app/build/outputs/apk/debug/app-debug.apk
