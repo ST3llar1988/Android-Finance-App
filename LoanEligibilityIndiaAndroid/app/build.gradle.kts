@@ -1,6 +1,7 @@
-﻿plugins {
+plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.compose")
 }
 
 android {
@@ -74,3 +75,4 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling:1.7.3")
     debugImplementation("androidx.compose.ui:ui-test-manifest:1.7.3")
 }
+
