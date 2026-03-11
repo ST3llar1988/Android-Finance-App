@@ -1,4 +1,4 @@
-﻿package com.example.loaneligibilityindiaandroid.services
+package com.example.loaneligibilityindiaandroid.services
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -16,13 +16,22 @@ import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import kotlinx.coroutines.tasks.await
 
 class DocumentOcrService {
+
     private val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
 
-    suspend fun extractFinancialSignals(context: Context, uri: Uri, hintType: LoanDocType): OcrExtractionResult {
-        val image = if (isPdf(context, uri)) extractPdfFirstPageBitmap(context, uri) else extractImageBitmap(context, uri)
-            ?: throw IllegalStateException("Unsupported document")
+    suspend fun extractFinancialSignals(
+        context: Context,
+        uri: Uri,
+        hintType: LoanDocType
+    ): OcrExtractionResult {
 
-        val input = InputImage.fromBitmap(image, 0)
+        val bitmap = if (isPdf(context, uri)) {
+            extractPdfFirstPageBitmap(context, uri)
+        } else {
+            extractImageBitmap(context, uri)
+        } ?: throw IllegalStateException("Unsupported document")
+
+        val input = InputImage.fromBitmap(bitmap, 0)
         val visionText = recognizer.process(input).await().text
 
         if (visionText.isBlank()) {
@@ -48,11 +57,18 @@ class DocumentOcrService {
 
     private fun extractPdfFirstPageBitmap(context: Context, uri: Uri): Bitmap? {
         val pfd: ParcelFileDescriptor = context.contentResolver.openFileDescriptor(uri, "r") ?: return null
+
         pfd.use { descriptor ->
             PdfRenderer(descriptor).use { renderer ->
                 if (renderer.pageCount <= 0) return null
+
                 renderer.openPage(0).use { page ->
-                    val bitmap = Bitmap.createBitmap(page.width * 2, page.height * 2, Bitmap.Config.ARGB_8888)
+                    val bitmap = Bitmap.createBitmap(
+                        page.width * 2,
+                        page.height * 2,
+                        Bitmap.Config.ARGB_8888
+                    )
+
                     page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
                     return bitmap
                 }
