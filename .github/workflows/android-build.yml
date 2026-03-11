@@ -19,6 +19,11 @@ jobs:
       - name: Install Gradle
         uses: gradle/actions/setup-gradle@v3
 
+      - name: Clean Project
+        run: |
+          cd LoanEligibilityIndiaAndroid
+          gradle clean
+
       - name: Build APK
         run: |
           cd LoanEligibilityIndiaAndroid
