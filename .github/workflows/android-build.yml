@@ -16,18 +16,18 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Install Gradle
-        uses: gradle/actions/setup-gradle@v3
+      - name: Make Gradle executable
+        run: chmod +x LoanEligibilityIndiaAndroid/gradlew
 
       - name: Clean Project
         run: |
           cd LoanEligibilityIndiaAndroid
-          gradle clean
+          ./gradlew clean
 
       - name: Build APK
         run: |
           cd LoanEligibilityIndiaAndroid
-          gradle assembleDebug
+          ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
