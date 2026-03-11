@@ -65,6 +65,8 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview:1.7.3")
     implementation("androidx.compose.material3:material3:1.3.0")
 
+    implementation("androidx.appcompat:appcompat:1.7.0")   // ADD THIS LINE
+
     implementation("androidx.compose.foundation:foundation:1.7.3")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
