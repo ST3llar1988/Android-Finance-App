@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="Theme.LoanEligibilityIndiaAndroid" parent="Theme.Material.Light.NoActionBar">
+    <style name="Theme.LoanEligibilityIndiaAndroid" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
